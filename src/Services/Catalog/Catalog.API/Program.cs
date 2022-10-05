@@ -1,42 +1,43 @@
-using Catalog.API.Data;
 using Catalog.API.Data.Interfaces;
+using Catalog.API.Data;
 using Catalog.API.Repositories;
+using Microsoft.OpenApi.Models;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 var services = builder.Services;
 services.AddScoped<ICatalogContext, CatalogContext>();
 services.AddScoped<IProductRepository, ProductRepository>();
-
-services.AddControllers();
-services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.API", Version = "v1" });
-});
 
 services.AddHealthChecks()
         .AddMongoDb(builder.Configuration["DatabaseSettings:ConnectionString"], "MongoDb Health", HealthStatus.Degraded);
 
 builder.Services.AddControllers();
+services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.API", Version = "v1" });
+});
+
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+
 
 var app = builder.Build();
 
-var env = app.Environment;
-
-if (env.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API v1"));
+    app.UseSwaggerUI();
 }
 
 app.UseRouting();
 app.UseAuthorization();
-
 
 
 app.UseEndpoints(endpoints =>
@@ -48,5 +49,6 @@ app.UseEndpoints(endpoints =>
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
     });
 });
+
 
 app.Run();

@@ -1,6 +1,6 @@
 ﻿using Catalog.API.Data.Interfaces;
 using Catalog.API.Entities;
-using MongoDB.Driver;
+using   MongoDB.Driver;
 
 namespace Catalog.API.Data
 {
