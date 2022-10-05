@@ -20,6 +20,7 @@ namespace Catalog.API.Repositories
                             .Find(p => true)
                             .ToListAsync();
         }
+
         public async Task<Product> GetProduct(string id)
         {
             return await _context
@@ -74,6 +75,5 @@ namespace Catalog.API.Repositories
             return deleteResult.IsAcknowledged
                 && deleteResult.DeletedCount > 0;
         }
-
     }
 }

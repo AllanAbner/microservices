@@ -1,10 +1,10 @@
-using Catalog.API.Data.Interfaces;
 using Catalog.API.Data;
+using Catalog.API.Data.Interfaces;
 using Catalog.API.Repositories;
-using Microsoft.OpenApi.Models;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +22,8 @@ services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.API", Version = "v1" });
 });
 
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
 
 var app = builder.Build();
 
@@ -39,7 +37,6 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseAuthorization();
 
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
@@ -49,6 +46,5 @@ app.UseEndpoints(endpoints =>
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
     });
 });
-
 
 app.Run();
