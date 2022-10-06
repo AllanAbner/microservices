@@ -17,7 +17,7 @@ namespace Catalog.API.Repositories
         {
             return await _context
                             .Products
-                            .Find(p => true)
+                            .Find(_ => true)
                             .ToListAsync();
         }
 
