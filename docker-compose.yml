@@ -6,7 +6,10 @@ services:
     image: mongo
 
   basketdb:
-    image: redis:alpine
+    image: redis:alpine    
+
+  discountdb:
+    image: postgres
 
   portainer:
     image: portainer/portainer-ce
@@ -27,3 +30,4 @@ volumes:
   mongo_data:
   redis_data:
   portainer_data:
+  pgdata:
