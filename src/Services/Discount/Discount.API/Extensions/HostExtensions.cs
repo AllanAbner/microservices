@@ -1,5 +1,4 @@
 ﻿using Npgsql;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Discount.API.Extensions
 {
@@ -31,7 +30,7 @@ namespace Discount.API.Extensions
                     command.CommandText = "DROP TABLE IF EXISTS Coupon";
                     command.ExecuteNonQuery();
 
-                    command.CommandText = @"CREATE TABLE Coupon(Id SERIAL PRIMARY KEY, 
+                    command.CommandText = @"CREATE TABLE Coupon(Id SERIAL PRIMARY KEY,
                                                                 ProductName VARCHAR(24) NOT NULL,
                                                                 Description TEXT,
                                                                 Amount INT)";
@@ -62,4 +61,3 @@ namespace Discount.API.Extensions
         }
     }
 }
-
