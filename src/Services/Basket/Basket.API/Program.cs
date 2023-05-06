@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddStackExchangeRedisCache(opt =>
 {
-    opt.Configuration = "172.28.110.146:6379";
+    opt.Configuration = builder.Configuration["RedisSettings:ConnectionString"];
 });
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
